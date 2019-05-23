@@ -1,4 +1,5 @@
 package facturacion;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ColeccionProductos extends javax.swing.JFrame {
@@ -60,6 +61,11 @@ public class ColeccionProductos extends javax.swing.JFrame {
         btnModificar.setText("MODIFICAR");
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnConsultar.setText("CONSULTAR");
 
@@ -169,6 +175,16 @@ public class ColeccionProductos extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if(tablaProductos.getSelectedRow() != -1){
+            int filaSeleccionada = tablaProductos.getSelectedRow();
+            listaProductos.eliminarProducto(listaProductos.elementoPosicion(filaSeleccionada));
+            modelo.removeRow(filaSeleccionada);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione un elemento para eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnAgregar;
