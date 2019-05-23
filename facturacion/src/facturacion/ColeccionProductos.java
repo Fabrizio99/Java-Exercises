@@ -7,6 +7,7 @@ public class ColeccionProductos extends javax.swing.JFrame {
     Object[] objeto = new Object[4];
     ArrayProducto listaProductos;
     Producto nuevo;
+    int filaSeleccionada = -1;
     public ColeccionProductos() {
         initComponents();
         listaProductos = new ArrayProducto();
@@ -59,6 +60,11 @@ public class ColeccionProductos extends javax.swing.JFrame {
         });
 
         btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("ELIMINAR");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +85,15 @@ public class ColeccionProductos extends javax.swing.JFrame {
             new String [] {
                 "Código", "Descripción", "Precio", "Stock"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaProductos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,13 +192,39 @@ public class ColeccionProductos extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         if(tablaProductos.getSelectedRow() != -1){
-            int filaSeleccionada = tablaProductos.getSelectedRow();
+            filaSeleccionada = tablaProductos.getSelectedRow();
             listaProductos.eliminarProducto(listaProductos.elementoPosicion(filaSeleccionada));
             modelo.removeRow(filaSeleccionada);
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione un elemento para eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        filaSeleccionada = tablaProductos.getSelectedRow();
+        if(btnModificar.getText().equals("MODIFICAR")){
+            if(filaSeleccionada != -1){
+                cmpCodigo.setText(listaProductos.elementoPosicion(filaSeleccionada).getCodigo());
+                cmpDescripcion.setText(listaProductos.elementoPosicion(filaSeleccionada).getDescripcion());
+                cmpPrecio.setText(listaProductos.elementoPosicion(filaSeleccionada).getPrecio()+"");
+                cmpStock.setText(listaProductos.elementoPosicion(filaSeleccionada).getStock()+"");
+                btnModificar.setText("GUARDAR");
+            }else{
+                JOptionPane.showMessageDialog(null, "Seleccione un elemento para modificar");
+            }
+        }else{
+            listaProductos.elementoPosicion(filaSeleccionada).setCodigo(cmpCodigo.getText());
+            listaProductos.elementoPosicion(filaSeleccionada).setDescripcion(cmpDescripcion.getText());
+            listaProductos.elementoPosicion(filaSeleccionada).setPrecio(Float.parseFloat(cmpPrecio.getText()));
+            listaProductos.elementoPosicion(filaSeleccionada).setStock(Integer.parseInt(cmpStock.getText()));
+            tablaProductos.setValueAt(listaProductos.elementoPosicion(filaSeleccionada).getCodigo(), filaSeleccionada, 0);
+            tablaProductos.setValueAt(listaProductos.elementoPosicion(filaSeleccionada).getDescripcion(), filaSeleccionada, 1);
+            tablaProductos.setValueAt(listaProductos.elementoPosicion(filaSeleccionada).getPrecio(), filaSeleccionada, 2);
+            tablaProductos.setValueAt(listaProductos.elementoPosicion(filaSeleccionada).getStock(), filaSeleccionada, 3);
+            btnModificar.setText("MODIFICAR");
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnAgregar;
