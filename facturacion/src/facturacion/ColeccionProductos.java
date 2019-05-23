@@ -74,6 +74,11 @@ public class ColeccionProductos extends javax.swing.JFrame {
         });
 
         btnConsultar.setText("CONSULTAR");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("REGISTRO DE PRODUCTOS");
@@ -225,6 +230,14 @@ public class ColeccionProductos extends javax.swing.JFrame {
             limpiarCampos();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        if(listaProductos.cantidadProducto() == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese productos para poder consultar el producto más caro y más barato");
+        }else{
+            JOptionPane.showMessageDialog(null, "El producto más caro es "+listaProductos.productoMasCaro().getDescripcion()+" y el producto más barato es "+listaProductos.productoMasBarato().getDescripcion());
+        }
+    }//GEN-LAST:event_btnConsultarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnAgregar;
