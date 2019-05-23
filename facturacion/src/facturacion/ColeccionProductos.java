@@ -60,6 +60,7 @@ public class ColeccionProductos extends javax.swing.JFrame {
         });
 
         btnModificar.setText("MODIFICAR");
+        btnModificar.setEnabled(false);
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -67,6 +68,7 @@ public class ColeccionProductos extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.setEnabled(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -74,6 +76,7 @@ public class ColeccionProductos extends javax.swing.JFrame {
         });
 
         btnConsultar.setText("CONSULTAR");
+        btnConsultar.setEnabled(false);
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarActionPerformed(evt);
@@ -189,6 +192,9 @@ public class ColeccionProductos extends javax.swing.JFrame {
         objeto[3] = nuevo.getStock();
         modelo.addRow(objeto);
         limpiarCampos();
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnConsultar.setEnabled(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -214,6 +220,9 @@ public class ColeccionProductos extends javax.swing.JFrame {
                 cmpPrecio.setText(listaProductos.elementoPosicion(filaSeleccionada).getPrecio()+"");
                 cmpStock.setText(listaProductos.elementoPosicion(filaSeleccionada).getStock()+"");
                 btnModificar.setText("GUARDAR");
+                btnAgregar.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnConsultar.setEnabled(false);
             }else{
                 JOptionPane.showMessageDialog(null, "Seleccione un elemento para modificar");
             }
@@ -228,6 +237,9 @@ public class ColeccionProductos extends javax.swing.JFrame {
             tablaProductos.setValueAt(listaProductos.elementoPosicion(filaSeleccionada).getStock(), filaSeleccionada, 3);
             btnModificar.setText("MODIFICAR");
             limpiarCampos();
+            btnAgregar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+            btnConsultar.setEnabled(true);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
